@@ -1,0 +1,13 @@
+from dataclasses import dataclass
+
+@dataclass
+class AIAgent:
+    name: str
+    task: str
+    active: bool = False  # Default value
+
+# Object banaate hain
+agent1 = AIAgent(name="VisionBot", task="Image Recognition", active=True)
+
+print('\n The Result is:')
+print(agent1)
