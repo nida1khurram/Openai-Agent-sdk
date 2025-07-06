@@ -1,0 +1,19 @@
+[project]
+name = "05-chainlit"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "nida1khurram", email = "147607279+nida1khurram@users.noreply.github.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "chainlit>=2.5.5",
+]
+
+[project.scripts]
+05-chainlit = "05_chainlit:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
