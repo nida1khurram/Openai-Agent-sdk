@@ -1,8 +1,7 @@
 # type: ignore
 import os
 from dotenv import load_dotenv
-from agents import Agent,Runner, AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,handoff,HandoffInputData
-# enable_verbose_stdout_logging
+from agents import Agent,Runner, AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,handoff,HandoffInputData,enable_verbose_stdout_logging
 from rich import print
 
 # enable_verbose_stdout_logging()
@@ -71,3 +70,7 @@ triage_agent = Agent(
 )
 result = Runner.run_sync(starting_agent=triage_agent, input="What is 2 + 2", run_config=config)
 print(result.final_output)
+
+
+# h=handoff_math_agent
+# print(h)

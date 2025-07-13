@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,function_tool,enable_verbose_stdout_logging
 from rich import print
 from agents.run import RunConfig
-# enable_verbose_stdout_logging()
+enable_verbose_stdout_logging()
 # Load the environment variables from the .env file
 load_dotenv()
 set_tracing_disabled(disabled=True)
@@ -41,12 +41,10 @@ print(add)
 # _______Tool Calling________
 agent= Agent(
     name = "Assistant",
-    # instructions="You are helpful assistant.",# 
-    instructions="You are helpful assistant.plz solve every query", #instruction test2 plz solve every query
+    instructions=add,
     tools=[add])
 
 result = Runner.run_sync(starting_agent=agent, input="Hi what is 2 + 2 = ?",run_config=config) #test 1
-# result = Runner.run_sync(starting_agent=agent, input="Hi what is 2 - 2 = ?",run_config=config) #test 2
 print("Result :\n")
 print(result.final_output)
 

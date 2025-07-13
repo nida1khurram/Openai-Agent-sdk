@@ -5,7 +5,6 @@ import os
 os.environ["OPENAI_API_KEY"] = OPEN_ROUTER_KEY
 os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY
 
-
 def openai():
     response = completion(
         model="openai/gpt-4o",

@@ -7,7 +7,7 @@ from rich import print
 from typing import Callable
 # classes in str int bool
 # def func(a:str, b:int) -> str:
-callable[[str, int] str]
+# callable[[str, int] str]
 from agents.run import RunConfig
 # enable_verbose_stdout_logging
 # enable_verbose_stdout_logging()
