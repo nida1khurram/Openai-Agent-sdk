@@ -1,10 +1,10 @@
 # type: ignore
 import os
 from dotenv import load_dotenv
-from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,function_tool,enable_verbose_stdout_logging,ModelSettings
+from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,function_tool,enable_verbose_stdout_logging,RunContextWrapper
 from rich import print
 from agents.run import RunConfig
-enable_verbose_stdout_logging()
+import asyncio
 # Load the environment variables from the .env file
 load_dotenv()
 set_tracing_disabled(disabled=True)
@@ -37,32 +37,28 @@ def add(a:int, b:int) -> int:
         b:int
     """
     return a + b
-print(add)
+# print(add)
 
-@function_tool
-def sub(a:int, b:int) -> int:
-    """Subtract two numbers
-    Args:
-        a:int
-        b:int
-    """
-    return a - b
-print(sub)
 # _______Tool Calling________
 agent= Agent(
     name = "Assistant",
-    instructions="use func as required",
-    tools=[add,sub],
-    model_settings=ModelSettings(
-        tool_choice="none" #test 1
-        # tool_choice="auto"  #test 2
-        # tool_choice="required"    #test 3
+    instructions=7,
+    tools=[add]
     )
-    )
+# ----------get system prompt test 1 check test 2 commit-----------
+# agent ko jo instruction di jati hen wo int ya bool ho tu logger.error show kre ga but progrm crash nhi hoga
+# async def main():
+#     instr = await agent.get_system_prompt(
+#         run_context=RunContextWrapper(context=None),
+#     )
+#     print("Result System :",instr)
+# asyncio.run(main())
 
-result = Runner.run_sync(starting_agent=agent, input="Hi what is 2 - 2 = ?",run_config=config) #test 1
+# ----------Test 2 llm----------
+result = Runner.run_sync(
+    starting_agent=agent,
+    input="Hi what is 2 - 2 = ?",
+    run_config=config,
+    ) 
 print("Result :\n")
 print(result.final_output)
-
-
-

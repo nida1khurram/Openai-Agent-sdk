@@ -1,10 +1,12 @@
 # type: ignore
 import os
 from dotenv import load_dotenv
-from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,function_tool,enable_verbose_stdout_logging,ModelSettings
+from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,function_tool,Handoff
 from rich import print
 from agents.run import RunConfig
-enable_verbose_stdout_logging()
+
+from datetime import datetime
+
 # Load the environment variables from the .env file
 load_dotenv()
 set_tracing_disabled(disabled=True)
@@ -29,40 +31,26 @@ config = RunConfig(
     model=model,
 )
 # _______Tool Calling________
-@function_tool
-def add(a:int, b:int) -> int:
-    """Add two numbers
-    Args:
-        a:int
-        b:int
-    """
-    return a + b
-print(add)
 
+# _______________________________________________
 @function_tool
-def sub(a:int, b:int) -> int:
-    """Subtract two numbers
-    Args:
-        a:int
-        b:int
-    """
-    return a - b
-print(sub)
-# _______Tool Calling________
+def show_current_time():
+    """Current date aur time dikhata hai"""
+    now = datetime.now()
+    return now.strftime("%d-%m-%Y %H:%M:%S")  # DD-MM-YYYY HH:MM:SS format
+
+# Use karne ka tarika
+# print(show_current_time)
+# ________________________________________
 agent= Agent(
     name = "Assistant",
-    instructions="use func as required",
-    tools=[add,sub],
-    model_settings=ModelSettings(
-        tool_choice="none" #test 1
-        # tool_choice="auto"  #test 2
-        # tool_choice="required"    #test 3
-    )
+    tools=[show_current_time]
     )
 
-result = Runner.run_sync(starting_agent=agent, input="Hi what is 2 - 2 = ?",run_config=config) #test 1
-print("Result :\n")
+result = Runner.run_sync(starting_agent=agent, input="Aaj ka date aur time bata den?",run_config=config) #test 1
+print("\nResult :\n")
 print(result.final_output)
+
 
 
 

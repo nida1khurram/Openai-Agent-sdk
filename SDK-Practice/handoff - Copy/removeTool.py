@@ -1,9 +1,32 @@
 # type: ignore
 import os
 from dotenv import load_dotenv
-from agents import Agent, Runner, AsyncOpenAI, OpenAIChatCompletionsModel,enable_verbose_stdout_logging
+from agents import Agent, Runner, AsyncOpenAI, OpenAIChatCompletionsModel, enable_verbose_stdout_logging,HandoffInputData
 from agents.run import RunConfig
+from typing import Tuple  # Add this import if HandoffInputData uses Tuple
+# Assuming HandoffInputData is imported from agents or another module
+# You might need to add: from agents.some_module import HandoffInputData
+
 enable_verbose_stdout_logging()
+
+def remove_all_tools(handoff_input_data: HandoffInputData) -> HandoffInputData:
+    """Filters out all tool items: file search, web search and function calls+output."""
+
+    history = handoff_input_data.input_history
+    new_items = handoff_input_data.new_items
+
+    filtered_history = (
+        _remove_tool_types_from_input(history) if isinstance(history, tuple) else history
+    )
+    filtered_pre_handoff_items = _remove_tools_from_items(handoff_input_data.pre_handoff_items)
+    filtered_new_items = _remove_tools_from_items(new_items)
+
+    return HandoffInputData(
+        input_history=filtered_history,
+        pre_handoff_items=filtered_pre_handoff_items,
+        new_items=filtered_new_items,
+    )
+
 # Load the environment variables from the .env file
 load_dotenv()
 
@@ -32,7 +55,6 @@ config = RunConfig(
 
 history_tutor_agent = Agent(
     name="History Tutor",
-    # agent handoff handoff-description k behalf pe hogi na k instrc pe
     handoff_description="Specialist agent for historical questions",
     instructions="You provide assistance with historical queries. Explain important events and context clearly.",
 )
@@ -54,5 +76,3 @@ result = Runner.run_sync(triage_agent, "plz solve Solve for 2 + 2 + ", run_confi
 
 print("\nCALLING AGENT\n")
 print(result.final_output)
-
-

@@ -54,7 +54,7 @@ agent= Agent(
     instructions="use func as required",
     tools=[add,sub],
     model_settings=ModelSettings(
-        tool_choice="none" #test 1
+        # tool_choice="none" #test 1
         # tool_choice="auto"  #test 2
         # tool_choice="required"    #test 3
     )

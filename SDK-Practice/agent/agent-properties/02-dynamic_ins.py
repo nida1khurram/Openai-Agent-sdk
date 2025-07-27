@@ -36,14 +36,15 @@ config = RunConfig(
     model_provider=provider,
 )
 # _______dyanamic instruc func___________
-def dynamic_instructions(wrapper:[RunContextWrapper],agent)->str:
+# def dynamic_instructions(wrapper:[RunContextWrapper],agent:Agent)->str:
+def dynamic_instructions(wrapper,agent)->str:
     print("Use dynamic func")
     return "You are a helpful assistant"
 
 agent= Agent(
     name = "Assistant",
     # instructions="You are a helpful assistant."   #test:1 --> use str
-    # instructions=dynamic_instructions               #test:2 --> use func
+    instructions=dynamic_instructions               #test:2 --> use callable func
     # instructions=   #test:3 --> use None mean ins not required its optinal
     )
 result = Runner.run_sync(starting_agent=agent, input="What is 2 + 2", run_config=config)

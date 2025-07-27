@@ -1,7 +1,7 @@
 # type: ignore
 import os
 from dotenv import load_dotenv
-from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,function_tool,enable_verbose_stdout_logging,ModelSettings
+from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,function_tool,enable_verbose_stdout_logging
 from rich import print
 from agents.run import RunConfig
 enable_verbose_stdout_logging()
@@ -38,29 +38,13 @@ def add(a:int, b:int) -> int:
     """
     return a + b
 print(add)
-
-@function_tool
-def sub(a:int, b:int) -> int:
-    """Subtract two numbers
-    Args:
-        a:int
-        b:int
-    """
-    return a - b
-print(sub)
 # _______Tool Calling________
 agent= Agent(
     name = "Assistant",
-    instructions="use func as required",
-    tools=[add,sub],
-    model_settings=ModelSettings(
-        tool_choice="none" #test 1
-        # tool_choice="auto"  #test 2
-        # tool_choice="required"    #test 3
-    )
-    )
+    instructions=add,
+    tools=[add])
 
-result = Runner.run_sync(starting_agent=agent, input="Hi what is 2 - 2 = ?",run_config=config) #test 1
+result = Runner.run_sync(starting_agent=agent, input="Hi what is 2 + 2 = ?",run_config=config) #test 1
 print("Result :\n")
 print(result.final_output)
 

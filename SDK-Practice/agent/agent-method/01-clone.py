@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tracing_disabled,function_tool,enable_verbose_stdout_logging,ModelSettings
 from rich import print
 from agents.run import RunConfig
-enable_verbose_stdout_logging()
+
+
 # Load the environment variables from the .env file
 load_dotenv()
 set_tracing_disabled(disabled=True)
@@ -37,32 +38,32 @@ def add(a:int, b:int) -> int:
         b:int
     """
     return a + b
-print(add)
+# print(add)
 
-@function_tool
-def sub(a:int, b:int) -> int:
-    """Subtract two numbers
-    Args:
-        a:int
-        b:int
-    """
-    return a - b
-print(sub)
 # _______Tool Calling________
 agent= Agent(
     name = "Assistant",
     instructions="use func as required",
-    tools=[add,sub],
-    model_settings=ModelSettings(
-        tool_choice="none" #test 1
-        # tool_choice="auto"  #test 2
-        # tool_choice="required"    #test 3
+    tools=[add]
     )
-    )
-
-result = Runner.run_sync(starting_agent=agent, input="Hi what is 2 - 2 = ?",run_config=config) #test 1
+# ----------clone-----------
+clone = agent.clone(
+    name = "New Assistant",
+)
+# print(clone)
+# --------------------
+result = Runner.run_sync(
+    starting_agent=agent,
+    input="Hi what is 2 - 2 = ?",
+    run_config=config,
+    ) #test 1
 print("Result :\n")
 print(result.final_output)
 
-
-
+result2 = Runner.run_sync(
+    starting_agent=clone,
+    input="Hi what is 2 + 2 = ?",
+    run_config=config,
+    ) #test 1
+print("Result2 :\n")
+print(result2.final_output)

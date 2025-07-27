@@ -32,7 +32,6 @@ config = RunConfig(
 
 history_tutor_agent = Agent(
     name="History Tutor",
-    # agent handoff handoff-description k behalf pe hogi na k instrc pe
     handoff_description="Specialist agent for historical questions",
     instructions="You provide assistance with historical queries. Explain important events and context clearly.",
 )

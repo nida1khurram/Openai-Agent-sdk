@@ -5,6 +5,7 @@ from agents import Agent, Runner,AsyncOpenAI, OpenAIChatCompletionsModel,set_tra
 from rich import print
 from agents.run import RunConfig
 enable_verbose_stdout_logging()
+
 # Load the environment variables from the .env file
 load_dotenv()
 set_tracing_disabled(disabled=True)
@@ -37,32 +38,27 @@ def add(a:int, b:int) -> int:
         b:int
     """
     return a + b
-print(add)
+# print(add)
 
-@function_tool
-def sub(a:int, b:int) -> int:
-    """Subtract two numbers
-    Args:
-        a:int
-        b:int
-    """
-    return a - b
-print(sub)
 # _______Tool Calling________
 agent= Agent(
     name = "Assistant",
     instructions="use func as required",
-    tools=[add,sub],
+    tools=[add],
+    reset_tool_choice=True,
+    # reset_tool_choice=False,# if false error 
     model_settings=ModelSettings(
-        tool_choice="none" #test 1
-        # tool_choice="auto"  #test 2
-        # tool_choice="required"    #test 3
+        tool_choice="required"    #test 3
     )
     )
-
-result = Runner.run_sync(starting_agent=agent, input="Hi what is 2 - 2 = ?",run_config=config) #test 1
+result = Runner.run_sync(
+    starting_agent=agent,
+    input="Hi what is 2 - 2 = ?",
+    run_config=config,
+    max_turns=3 # max turn
+    ) #test 1
 print("Result :\n")
 print(result.final_output)
-
-
+# output
+# agents.exceptions.MaxTurnsExceeded: Max turns (3) exceeded
 

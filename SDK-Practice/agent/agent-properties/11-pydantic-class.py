@@ -7,9 +7,6 @@ from agents import (
     RunConfig,
     OpenAIChatCompletionsModel,AsyncOpenAI,
     set_tracing_disabled,
-    enable_verbose_stdout_logging,
-    
-
 )
 # enable_verbose_stdout_logging()
 
@@ -34,12 +31,11 @@ config = RunConfig(
     model=model,
     model_provider=provider,
 )
+from pydantic import BaseModel
 
-agent= Agent(
-    # name = "Assistant" #name is required instance attribute/ class attribute
-    name = 123   # test:1 --> name in int
-    
-    )
-result = Runner.run_sync(starting_agent=agent, input="Who are you?", run_config=config)
-print("Result :\n")
-print(result.final_output)
+class Person(BaseModel):
+    name : str
+    age : int
+first_person = Person(name="nida", age=38)
+print(first_person.name)
+print(first_person.age)
