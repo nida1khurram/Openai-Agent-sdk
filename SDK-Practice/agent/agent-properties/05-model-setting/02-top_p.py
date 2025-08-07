@@ -1,7 +1,7 @@
 # type: ignore
 import os
 from dotenv import load_dotenv
-from agents import Agent, Runner, AsyncOpenAI, OpenAIChatCompletionsModel,  set_tracing_disabled,enable_verbose_stdout_logging
+from agents import Agent, Runner, AsyncOpenAI, OpenAIChatCompletionsModel,  set_tracing_disabled,enable_verbose_stdout_logging,ModelSettings
 from agents.run import RunConfig
 # enable_verbose_stdout_logging()
 # Load the environment variables from the .env file
@@ -25,20 +25,29 @@ model = OpenAIChatCompletionsModel(
 )
 
 config = RunConfig(
-    model=model,# test 2 if runner has no model use llm this one
+    model=model,
 )
-
 
 agent= Agent(
     name = "Assistant",
     instructions="You are helpful assistant.",
-    model=model
+    model=model,
+    # 0.1 se 1 tak ki value hoti hai.0.9 mean 90% word chose kre
+    model_settings=ModelSettings(top_p=0.1) 
+    #top_p probability most likely word
+    #top_k probability zia 70, qasim 70, ameen 50 90per
+    #top_k  kon se krne hen
+# top_p tab use karo jab:
+# Variety chahiye, lekin bahut weird answers nahi.
+# Example: Story writing, poetry, creative content.
     )
-result = Runner.run_sync(starting_agent=agent, input="Who are you?",
-    #  run_config=config #test:1 consider this one
+result = Runner.run_sync(starting_agent=agent, input="Tell me fairy story 50 words?",
      )
 print("Result :\n")
 print(result.final_output)
+
+
+
 
 
 

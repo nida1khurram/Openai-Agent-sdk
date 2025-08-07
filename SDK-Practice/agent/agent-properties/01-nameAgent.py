@@ -30,16 +30,11 @@ model = OpenAIChatCompletionsModel(
     model="gemini-2.0-flash",
     openai_client = provider,
 )
-# config: define at run level
-# config = RunConfig(
-#     model=model,
-#     model_provider=provider,
-# )
 
 agent= Agent(
     name = "Assistant", #name is required
     model=model
-
+    # ins is required but not define
     )
 # result = Runner.run_sync(starting_agent=agent, input="Who are you?", run_config=config)
 result = Runner.run_sync(starting_agent=agent, input="Who are you?")

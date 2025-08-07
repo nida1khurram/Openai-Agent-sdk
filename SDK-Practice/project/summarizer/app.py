@@ -26,11 +26,7 @@ Summarizer_agent = Agent(
 
 result = Runner.run_sync(
     Summarizer_agent,
-    input = "Pakistan, officially the Islamic Republic of Pakistan, is a South Asian nation with a rich history and diverse geography. It was established in 1947 after the partition of British India, and is the world's fifth-most populous country, with a predominantly Muslim population. Islamabad is the capital, while Karachi serves as the largest city and financial hub. Key aspects of Pakistan:" \
-    "Geography:Pakistan is located in South Asia, bordering Iran, Afghanistan, China, and India. It has a coastline along the Arabian Sea and the Gulf of Oman." \
-    "History:Pakistan's history is intertwined with the Indian subcontinent's history, including the Indus Valley Civilization and various empires like the Mughals." \
-    "Culture:Pakistan boasts a diverse culture influenced by various groups, including Aryans, Persians, Greeks, Arabs, and Mughals." \
-    "Economy:Pakistan has an agricultural economy with major crops like wheat, cotton, and rice.",
+    input = "What is a Noun?A noun is a fundamental building block of language that serves as the name of a person, place, thing, animal, concept, or quality. As one of the primary parts of speech, nouns enable us to identify and refer to the subjects and objects in our communication. They provide the essential elements around which sentences are constructed, giving meaning and clarity to our expressions.Nouns can be categorized into several types. Common nouns refer to general items (e.g., city, book), while proper nouns denote specific names (e.g., Mumbai, The Alchemist). Concrete nouns represent tangible objects (e.g., chair, phone), whereas abstract nouns signify intangible ideas (e.g., love, courage). Collective nouns describe groups (e.g., team, flock), and possessive nouns indicate ownership (e.g., Rohan’s laptop). Additionally, nouns can be countable (e.g., apples) or uncountable (e.g., milk).In sentences, nouns function in various roles. They can act as the subject (The teacher explains), the object (She buys a dress), or the complement (He is an engineer). Nouns also form the backbone of phrases and clauses, enabling detailed descriptions and complex ideas.Without nouns, language would lose its structure and precision. They are indispensable in both spoken and written communication, allowing us to share thoughts, describe experiences, and connect with others effectively. Mastering nouns is crucial for clear and impactful expression in any language.",
     )
 print()
 print(result.final_output)

@@ -29,7 +29,7 @@ config = RunConfig(
     model_provider=external_client,
     tracing_disabled=True
 )
-
+# handoff description
 history_tutor_agent = Agent(
     name="History Tutor",
     handoff_description="Specialist agent for historical questions", #handoff discription
@@ -44,10 +44,10 @@ math_tutor_agent = Agent(
 triage_agent = Agent(
     name="Triage Agent",
     instructions="You determine which agent to use based on the user's homework question",
-    handoffs=[history_tutor_agent, math_tutor_agent]
+   #handoff list
+   handoffs=[history_tutor_agent, math_tutor_agent]
 )
 
-# result = Runner.run_sync(triage_agent, "Hello, how are you.", run_config=config)
 # result = Runner.run_sync(triage_agent, "What is the capital of France?", run_config=config)
 result = Runner.run_sync(triage_agent, "plz solve Solve for 2 + 2 + ", run_config=config)
 

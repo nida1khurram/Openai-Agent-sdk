@@ -38,11 +38,31 @@ triage_agent = Agent(
     "Your task is to accurately translate text between these two languages based on user requests.",
     handoffs=[english_translator_agent, urdu_translator_agent]
 )
+
+
 result = Runner.run_sync(
     triage_agent,
-    input ="آج موسم بہت اچھا ہے۔",
-    # input = "What's up?",
+    # input ="آج موسم خوبصورت ہے plz convert into english",
+     input ="Today is sunday plz convert into urdu",
     run_config = config
     )
 print("\nTranslator Result:")
 print(result.final_output)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# prompt = input('Please type the text to convert.')
