@@ -2,7 +2,7 @@
 from litellm import completion
 import os
 
-os.environ["OPENAI_API_KEY"] = OPEN_ROUTER_KEY
+os.environ["OPEN_ROUTER_KEY"] = OPEN_ROUTER_KEY
 os.environ["GEMINI_API_KEY"] = GEMINI_API_KEY
 
 def openai():
